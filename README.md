@@ -19,21 +19,26 @@ plugins=(jumper)
 
 ## Usage
 
-Jumper Plugin Help
-===================
-Configuration file location: /Users/sstucky/.jumper_locations
-
 Commands and Aliases:
+
   jumpAdd, ja          : Add current directory to jump list
+  
   jumpList, jl         : List all saved jump locations
+  
   jumpRemove <id>, jr <id> : Remove jump location by ID
+  
   jump <id>, j <id>    : Jump to location with specified ID
+  
   jumpHelp, jh         : Display this help information
 
 Usage Examples:
+
   ja                   : Add current directory
+  
   jl                   : List all locations
+  
   jr 2                 : Remove location with ID 2
+  
   j 1                  : Jump to location with ID 1
 
 

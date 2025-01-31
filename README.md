@@ -1,7 +1,7 @@
 Jumper
 ===
 
-Jumper saves your current path and allows you to quickly jump to others 
+A ZSH plugin, Jumper saves your current path and allows you to quickly jump to others 
 
 ## Installation
 

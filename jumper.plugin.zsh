@@ -1,12 +1,10 @@
 #!/usr/bin/env zsh
 
-# File to store jump locations
 JUMPER_FILE="$HOME/.jumper_locations"
 
 # Create the file if it doesn't exist
 [[ ! -f "$JUMPER_FILE" ]] && touch "$JUMPER_FILE"
 
-# Function to display help information
 jumpHelp() {
     echo "Jumper Plugin Help"
     echo "==================="
@@ -26,10 +24,8 @@ jumpHelp() {
     echo "  j 1                  : Jump to location with ID 1"
 }
 
-# Alias for jumpHelp
 alias jh='jumpHelp'
 
-# Function to add current directory to jump locations
 jumpAdd() {
     local current_dir=$(pwd)
     
@@ -47,11 +43,8 @@ jumpAdd() {
     echo "Added: ${next_id}:${current_dir}"
 }
 
-
-# Alias for jumpAdd
 alias ja='jumpAdd'
 
-# Function to list all jump locations
 jumpList() {
     if [[ -s "$JUMPER_FILE" ]]; then
         cat "$JUMPER_FILE"
@@ -60,10 +53,8 @@ jumpList() {
     fi
 }
 
-# Alias for jumpList
 alias jl='jumpList'
 
-# Function to remove a jump location by ID
 jumpRemove() {
     if [[ -n "$1" ]]; then
         if grep -q "^$1:" "$JUMPER_FILE"; then
@@ -77,11 +68,8 @@ jumpRemove() {
     fi
 }
 
-
-# Alias for jumpRemove
 alias jr='jumpRemove'
 
-# Function to jump to a saved location
 jump() {
     if [[ -n "$1" ]]; then
         local jump_path=$(awk -F: '$1=="'"$1"'" {print $2}' "$JUMPER_FILE")
@@ -95,7 +83,4 @@ jump() {
     fi
 }
 
-
-# Alias for jump
 alias j='jump'
-

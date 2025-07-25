@@ -21,29 +21,29 @@ plugins=(jumper)
 
 Commands and Aliases:
 
-  jumpAdd [name], ja [name] : Add current directory to jump list (with optional name)
+  `jumpAdd [name]`, `ja [name]` : Add current directory to jump list (with optional name)
 
-  jumpList, jl         : List all saved jump locations
+  `jumpList`, `jl`         : List all saved jump locations
 
-  jumpRemove <id>, jr <id> : Remove jump location by ID
+  `jumpRemove <id>`, `jr <id>` : Remove jump location by ID
 
-  jump <id>, j <id>    : Jump to location with specified ID
+  `jump <id>`, `j <id>`    : Jump to location with specified ID
 
-  jumpBack, jb         : Jump back to the previous directory
+  `jumpBack`, `jb`         : Jump back to the previous directory
 
-  jumpHelp, jh         : Display this help information
+  `jumpHelp`, `jh`         : Display this help information
 
 Usage Examples:
 
-  ja [name]            : Add current directory (with optional name)
+  `ja [name]`            : Add current directory (with optional name)
 
-  jl                   : List all locations
+  `jl`                   : List all locations
 
-  jr 2                 : Remove location with ID 2
+  `jr 2`                 : Remove location with ID 2
 
-  j 1                  : Jump to location with ID 1
+  `j 1`                  : Jump to location with ID 1
 
-  jb                   : Jump back to the previous directory
+  `jb`                   : Jump back to the previous directory
 
 
 Jumper stores all information in the file displayed in the help message. This file can be edited manually as long as the same format is respected.

@@ -1,9 +1,11 @@
 #!/usr/bin/env zsh
 
 JUMPER_FILE="$HOME/.jumper_locations"
+JUMPER_BACK_FILE="$HOME/.jumper_back"
 
 # Create the file if it doesn't exist
 [[ ! -f "$JUMPER_FILE" ]] && touch "$JUMPER_FILE"
+[[ ! -f "$JUMPER_BACK_FILE" ]] && touch "$JUMPER_BACK_FILE"
 
 jumpHelp() {
     echo "Jumper Plugin Help"
@@ -11,23 +13,31 @@ jumpHelp() {
     echo "Configuration file location: $JUMPER_FILE"
     echo ""
     echo "Commands and Aliases:"
-    echo "  jumpAdd, ja          : Add current directory to jump list"
+    echo "  jumpAdd [name], ja [name] : Add current directory to jump list (with optional name)"
     echo "  jumpList, jl         : List all saved jump locations"
     echo "  jumpRemove <id>, jr <id> : Remove jump location by ID"
     echo "  jump <id>, j <id>    : Jump to location with specified ID"
+    echo "  jumpBack, jb         : Jump back to the previous directory"
     echo "  jumpHelp, jh         : Display this help information"
     echo ""
     echo "Usage Examples:"
-    echo "  ja                   : Add current directory"
+    echo "  ja [name]            : Add current directory (with optional name)"
     echo "  jl                   : List all locations"
     echo "  jr 2                 : Remove location with ID 2"
     echo "  j 1                  : Jump to location with ID 1"
+    echo "  jb                   : Jump back to the previous directory"
 }
 
 alias jh='jumpHelp'
 
 jumpAdd() {
     local current_dir=$(pwd)
+    local name=""
+    
+    # If first argument is provided, use it as the name
+    if [[ -n "$1" ]]; then
+        name="$1"
+    fi
     
     # Check if the current directory already exists in the file
     local existing_entry=$(grep -n ":${current_dir}$" "$JUMPER_FILE")
@@ -39,8 +49,13 @@ jumpAdd() {
     fi
 
     local next_id=$(wc -l < "$JUMPER_FILE" | tr -d ' ')
-    echo "${next_id}:${current_dir}" >> "$JUMPER_FILE"
-    echo "Added: ${next_id}:${current_dir}"
+    if [[ -n "$name" ]]; then
+        echo "${name}:${current_dir}" >> "$JUMPER_FILE"
+        echo "Added: ${name}:${current_dir}"
+    else
+        echo "${next_id}:${current_dir}" >> "$JUMPER_FILE"
+        echo "Added: ${next_id}:${current_dir}"
+    fi
 }
 
 alias ja='jumpAdd'
@@ -72,6 +87,9 @@ alias jr='jumpRemove'
 
 jump() {
     if [[ -n "$1" ]]; then
+        # Store current directory in the back file before jumping
+        pwd > "$JUMPER_BACK_FILE"
+        
         local jump_path=$(awk -F: '$1=="'"$1"'" {print $2}' "$JUMPER_FILE")
         if [[ -n "$jump_path" ]]; then
             cd "$jump_path"
@@ -84,3 +102,15 @@ jump() {
 }
 
 alias j='jump'
+
+jumpBack() {
+    if [[ -s "$JUMPER_BACK_FILE" ]]; then
+        local back_dir=$(<"$JUMPER_BACK_FILE")
+        pwd > "$JUMPER_BACK_FILE"
+        if [[ -d "$back_dir" ]]; then
+            cd "$back_dir"
+        fi
+    fi
+}
+
+alias jb='jumpBack'

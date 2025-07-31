@@ -5,6 +5,9 @@ A ZSH plugin, Jumper saves your current path and allows you to quickly jump to o
 
 [Awesome ZSH plugins](https://github.com/unixorn/awesome-zsh-plugins)
 
+![example](./docs/jumper.gif)
+
+
 ## Installation
 
 1) clone this repository to the plugins folder of your zsh installation. 

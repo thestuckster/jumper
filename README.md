@@ -52,3 +52,8 @@ Usage Examples:
 
 
 Jumper stores all information in the file displayed in the help message. This file can be edited manually as long as the same format is respected.
+
+
+## Tab Completion
+
+`jump`/`j` and `jumpRemove`/`jr` support tab completion. Pressing `<Tab>` after either command lists the saved IDs/names along with their associated directory, so you can complete without running `jl` first.

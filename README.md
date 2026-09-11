@@ -22,6 +22,18 @@ plugins=(jumper)
 3) close and reopen your terminal window
 
 
+## Updating
+
+To update to the latest version, pull the latest changes from within the plugin's directory:
+
+```
+cd ~/.oh-my-zsh/custom/plugins/jumper
+git pull
+```
+
+Then close and reopen your terminal window (or run `source ~/.zshrc`) to pick up the changes.
+
+
 ## Usage
 
 Commands and Aliases:

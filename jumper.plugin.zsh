@@ -62,7 +62,7 @@ alias ja='jumpAdd'
 
 jumpList() {
     if [[ -s "$JUMPER_FILE" ]]; then
-        cat "$JUMPER_FILE"
+        awk -F: '{printf "\033[1;34m%s\033[0m:%s\n", $1, $2}' "$JUMPER_FILE"
     else
         echo "No jump locations saved."
     fi
@@ -114,3 +114,14 @@ jumpBack() {
 }
 
 alias jb='jumpBack'
+
+_jumper_complete_ids() {
+    local -a entries
+    entries=("${(@f)$(awk -F: '{print $1":"$2}' "$JUMPER_FILE")}")
+    _describe 'jump location' entries
+}
+
+compdef _jumper_complete_ids jump
+compdef _jumper_complete_ids j
+compdef _jumper_complete_ids jumpRemove
+compdef _jumper_complete_ids jr
